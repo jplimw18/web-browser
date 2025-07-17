@@ -19,6 +19,6 @@ if (app.Environment.IsDevelopment())
     });
 }
 
-app.MapGet("/", () => "Hello World!");
+app.MapGet("/", () => "Browser Server is ready");
 
 app.Run();
