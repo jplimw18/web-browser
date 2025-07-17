@@ -1,0 +1,90 @@
+### Diretórios gerados automaticamente ###
+/bin/
+/obj/
+/lib/
+/build/
+/packages/
+/TestResults/
+/out/
+/publish/
+
+### Arquivos de build/execução ###
+*.exe
+*.dll
+*.so
+*.a
+*.lib
+*.exp
+*.pdb
+*.ilk
+*.cache
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.ncrunchsolution
+*.ncrunchproject
+
+### Arquivos de editor/IDE ###
+.vs/
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+*.DS_Store
+
+### Dependências ###
+**/node_modules/
+**/jspm_packages/
+**/bower_components/
+
+### Logs e diagnósticos ###
+*.log
+*.log.*
+*.tlog
+*.pid
+*.seed
+*.pid.lock
+
+### Arquivos de usuário ###
+*.userprefs
+
+### Arquivos temporários ###
+*.tmp
+*.temp
+*._*
+*.bak
+*.old
+
+### Específico para projetos C ###
+*.o
+*.out
+*.i
+*.s
+
+### Específico para C# ###
+*.dotCover
+*.coverage
+*.jsl
+*.lcov
+*.pyc
+*.pyo
+
+### Configurações locais ###
+appsettings.Development.json
+appsettings.Local.json
+.env
+.env.local
+
+### Arquivos de banco de dados local ###
+*.db
+*.sqlite
+*.mdf
+*.ldf
+
+### Específico para seu projeto ###
+/src/Server/bin/
+/src/Server/obj/
+/src/WebApp/bin/
+/src/WebApp/obj/
