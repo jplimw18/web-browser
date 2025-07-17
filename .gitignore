@@ -77,14 +77,6 @@ appsettings.Local.json
 .env
 .env.local
 
-### Arquivos de banco de dados local ###
-*.db
-*.sqlite
-*.mdf
-*.ldf
-
 ### Específico para seu projeto ###
 /src/Server/bin/
 /src/Server/obj/
-/src/WebApp/bin/
-/src/WebApp/obj/
