@@ -139,3 +139,4 @@ HOST_RESULT* read_hosts_file(const char *domain)
     fclose(file);
     return result;
 }
+
