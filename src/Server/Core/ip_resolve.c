@@ -59,7 +59,7 @@ typedef struct {
 
 
 // LOCAL CACHE
-int is_comment_or_empty(const char *line)
+bool is_comment_or_empty(const char *line)
 {
     while (*line == ' ' || *line == '\t') {
         ++line;
@@ -70,7 +70,7 @@ int is_comment_or_empty(const char *line)
 
 void parse_hosts_line(const char *line, char *ip, char *hostname)
 {
-    if (is_comment_or_empty(line) == 0)
+    if (is_comment_or_empty(line))
     {
         ip[0] = '\0';
         hostname[0] = '\0';
@@ -194,7 +194,7 @@ int custom_inet_pton(const char *cp, void *addr)
 
 
 // CRAIA SOCKET DE REDE PARA CONECTAR NOS SERVIDORES DE DNS (ainda em dúvida se vai ser google ou cloudfare)
-__declspec(dllexport) int create_udp_socket(unsigned short dns_ip)
+int create_udp_socket(SOCKET *sd, unsigned short dns_ip)
 {
     int rc, i;
 
@@ -208,14 +208,14 @@ __declspec(dllexport) int create_udp_socket(unsigned short dns_ip)
 
     if (WSAStartup(MAKEWORD(2, 1), &wsaData) != 0)
     {
-        printf("Falha ao inicializar WinSock");
+        // printf("Falha ao inicializar WinSock");
         return -1;
     }
 
     sd = socket(AF_INET, SOCK_DGRAM, IPPROTO_IP);
     if (sd < 0)
     {
-        printf("Falha ao criar socket");
+        // printf("Falha ao criar socket");
         WSACleanup();
         return -1;
     }
@@ -228,7 +228,7 @@ __declspec(dllexport) int create_udp_socket(unsigned short dns_ip)
     {
         if (custom_inet_pton(_GOOGLE_DNS_IP, &addr) != 1)
         {
-            printf("Falha ao converter endereço IP do GOOGLE DNS\n");
+            // printf("Falha ao converter endereço IP do GOOGLE DNS\n");
             closesocket(sd);
             WSACleanup();
             return -1;
@@ -238,7 +238,7 @@ __declspec(dllexport) int create_udp_socket(unsigned short dns_ip)
     {
         if (custom_inet_pton(_CLOUDFARE_IP, &addr) != 1)
         {
-            printf("Falha ao converter endereço IP do CLOUDFARE DNS\n");
+            // printf("Falha ao converter endereço IP do CLOUDFARE DNS\n");
             closesocket(sd);
             WSACleanup();
             return -1;
@@ -246,7 +246,7 @@ __declspec(dllexport) int create_udp_socket(unsigned short dns_ip)
     }
     else
     {
-        printf("DNS selecionado não correspondente");
+        // printf("DNS selecionado não correspondente");
         closesocket(sd);
         WSACleanup();
         return -1;
@@ -255,15 +255,13 @@ __declspec(dllexport) int create_udp_socket(unsigned short dns_ip)
     lpHostEntry = gethostbyaddr((const char*)&addr, sizeof(addr), AF_INET);
     if (lpHostEntry == NULL)
     {
-        printf("Falha ao obter informações do host: %d\n", WSAGetLastError());
+        // printf("Falha ao obter informações do host: %d\n", WSAGetLastError());
         closesocket(sd);
         WSACleanup();
         return -1;
     }
 
-    printf("DNS selecionado -> %s :: IP [%s]\n", lpHostEntry->h_name, inet_ntoa(addr));
-    closesocket(sd);
-    WSACleanup();
+    // printf("DNS selecionado -> %s :: IP [%s]\n", lpHostEntry->h_name, inet_ntoa(addr));
 
     return 0;
 }

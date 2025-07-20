@@ -31,8 +31,7 @@ app.MapGet("/", () => "Hello World!");
 
 app.MapGet("/dns", () =>
 {
-    var teste = IpResolve.DnsTest(0);
-    return teste;
+    return "em implementação";
 });
 
 app.Run();
