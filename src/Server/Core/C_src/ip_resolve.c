@@ -59,7 +59,7 @@ typedef struct {
 
 
 // LOCAL CACHE
-bool is_comment_or_empty(const char *line)
+int is_comment_or_empty(const char *line)
 {
     while (*line == ' ' || *line == '\t') {
         ++line;
@@ -70,7 +70,7 @@ bool is_comment_or_empty(const char *line)
 
 void parse_hosts_line(const char *line, char *ip, char *hostname)
 {
-    if (_is_comment_or_empty(line))
+    if (is_comment_or_empty(line) == 0)
     {
         ip[0] = '\0';
         hostname[0] = '\0';
@@ -194,9 +194,11 @@ int custom_inet_pton(const char *cp, void *addr)
 
 
 // CRAIA SOCKET DE REDE PARA CONECTAR NOS SERVIDORES DE DNS (ainda em dúvida se vai ser google ou cloudfare)
-int create_udp_socket(SOCKET *sd ,unsigned short dns_ip)
+__declspec(dllexport) int create_udp_socket(unsigned short dns_ip)
 {
     int rc, i;
+
+    SOCKET sd;
 
     struct sockaddr_in cliAddr, dnsServAddr;
     struct hostent *lpHostEntry;
@@ -259,7 +261,7 @@ int create_udp_socket(SOCKET *sd ,unsigned short dns_ip)
         return -1;
     }
 
-    printf("DNS selecionado -> %s :: IP [%s]\n", lpHostEntry->h_name, inet_ntoa((struct in_addr)lpHostEntry->h_addr_list[0]));
+    printf("DNS selecionado -> %s :: IP [%s]\n", lpHostEntry->h_name, inet_ntoa(addr));
     closesocket(sd);
     WSACleanup();
 
